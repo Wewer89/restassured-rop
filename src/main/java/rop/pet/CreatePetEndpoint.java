@@ -1,7 +1,5 @@
 package rop.pet;
 
-import io.qameta.allure.Severity;
-import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Step;
 import org.apache.http.HttpStatus;
 import pojo.pet.Pet;
@@ -34,7 +32,7 @@ public class CreatePetEndpoint extends BaseEndpoint<CreatePetEndpoint, Pet> {
             .spec(RequestConfigurationBuilder.getDefaultSpecBuilder())
             .body(pet)
             .when()
-            .post("pet");
+            .post("/pet");
     return this;
   }
 

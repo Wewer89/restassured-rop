@@ -1,7 +1,5 @@
 package rop.pet;
 
-import io.qameta.allure.Severity;
-import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Step;
 import org.apache.http.HttpStatus;
 import pojo.apiresponse.ApiResponse;

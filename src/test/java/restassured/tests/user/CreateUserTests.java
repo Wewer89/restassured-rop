@@ -10,7 +10,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import pojo.apiresponse.ApiResponse;
 import pojo.user.User;
-import request.configuration.RequestConfigurationBuilder;
 import restassured.tests.testbases.SuiteTestBase;
 import rop.user.CreateUserEndpoint;
 import rop.user.DeleteUserEndpoint;
@@ -20,7 +19,7 @@ import static io.restassured.RestAssured.given;
 
 public class CreateUserTests extends SuiteTestBase {
     private User user;
-    private ApiResponse apiResponse;
+    private ApiResponse pet;
 
     @TmsLink("ID-3")
     @Severity(SeverityLevel.CRITICAL)
@@ -29,10 +28,10 @@ public class CreateUserTests extends SuiteTestBase {
     public void givenUserWhenPostUserThenUserIsCreatedTest() {
         user = new UserTestDataGenerator().generateUser();
 
-        apiResponse = new ApiResponse();
-        apiResponse.setCode(HttpStatus.SC_OK);
-        apiResponse.setType("unknown");
-        apiResponse.setMessage((user.getId().toString()));
+        pet = new ApiResponse();
+        pet.setCode(HttpStatus.SC_OK);
+        pet.setType("unknown");
+        pet.setMessage((user.getId().toString()));
 
 /*        ApiResponse actualApiResponse = given()
                 .spec(RequestConfigurationBuilder.getDefaultSpecBuilder())
@@ -45,16 +44,16 @@ public class CreateUserTests extends SuiteTestBase {
                 .extract()
                 .as(ApiResponse.class);*/
 
-        ApiResponse actualApiResponse = new CreateUserEndpoint().setUser(user).sendRequest().assertRequestSuccess().getResponseModel();
+        ApiResponse actualPet = new CreateUserEndpoint().setUser(user).sendRequest().assertRequestSuccess().getResponseModel();
 
 /*        Assert.assertEquals(actualApiResponse.getCode(), apiResponse.getCode(), "API code is incorrect");
         Assert.assertEquals(actualApiResponse.getType(), apiResponse.getType(), "API type is incorrect");*/
 
         Assertions
-                .assertThat(actualApiResponse)
+                .assertThat(actualPet)
                 .describedAs("User was not created by API")
                 .usingRecursiveComparison()
-                .isEqualTo(apiResponse);
+                .isEqualTo(pet);
     }
 
     @AfterMethod
@@ -71,14 +70,14 @@ public class CreateUserTests extends SuiteTestBase {
 /*        Assert.assertEquals(actualApiResponse.getCode(), Integer.valueOf(200), "API code is incorrect");
         Assert.assertEquals(actualApiResponse.getType(), "unknown");*/
 
-        ApiResponse actualApiResponse = new DeleteUserEndpoint().setUserName(user.getUsername()).sendRequest().getResponseModel();
+        ApiResponse actualPet = new DeleteUserEndpoint().setUserName(user.getUsername()).sendRequest().getResponseModel();
 
-        apiResponse.setMessage(user.getUsername());
+        pet.setMessage(user.getUsername());
 
         Assertions
-                .assertThat(actualApiResponse)
+                .assertThat(actualPet)
                 .describedAs("User was not deleted by API")
                 .usingRecursiveComparison()
-                .isEqualTo(apiResponse);
+                .isEqualTo(pet);
     }
 }

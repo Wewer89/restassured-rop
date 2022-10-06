@@ -1,8 +1,8 @@
-package rop.user;
+package rop.pet;
 
 import io.qameta.allure.Step;
 import org.apache.http.HttpStatus;
-import pojo.apiresponse.ApiResponse;
+import pojo.pet.Pet;
 import request.configuration.RequestConfigurationBuilder;
 import rop.BaseEndpoint;
 
@@ -10,27 +10,28 @@ import java.lang.reflect.Type;
 
 import static io.restassured.RestAssured.given;
 
-public class DeleteUserEndpoint extends BaseEndpoint<DeleteUserEndpoint, ApiResponse> {
+public class GetPetEndpoint extends BaseEndpoint<GetPetEndpoint, Pet> {
 
-    String userName;
 
-    public DeleteUserEndpoint setUserName(String userName) {
-        this.userName = userName;
+    Integer petId;
+
+    public GetPetEndpoint setPetId(Integer petId) {
+        this.petId = petId;
         return this;
     }
 
     @Override
     protected Type getModelType() {
-        return ApiResponse.class;
+        return Pet.class;
     }
 
-    @Step("Delete User")
+    @Step("Get Pet")
     @Override
-    public DeleteUserEndpoint sendRequest() {
+    public GetPetEndpoint sendRequest() {
         response = given()
                 .spec(RequestConfigurationBuilder.getDefaultSpecBuilder())
                 .when()
-                .delete("/user/{username}", userName);
+                .get("/pet/{petId}", petId);
         return this;
     }
 

@@ -1,7 +1,5 @@
 package pojo.apiresponse;
 
-import pojo.pet.Pet;
-
 public class ApiResponse {
 
     private Integer code;

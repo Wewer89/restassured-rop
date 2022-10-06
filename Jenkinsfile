@@ -1,4 +1,5 @@
 pipeline {
+    // Agent zwany inaczej worker odpowiada za wdrożenie na docelowym serwerze
     agent any
     stages {
         stage('Build test code') {

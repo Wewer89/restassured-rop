@@ -10,14 +10,27 @@ import io.restassured.specification.RequestSpecification;
 public class RequestConfigurationBuilder {
 
     public RequestSpecBuilder getRequestSpecBuilder() {
-
         return new RequestSpecBuilder()
                 .setContentType(ContentType.JSON)
-                // Dobrą praktyką jest ustawienie Object Mapper dla każdego żądania
-                .setConfig(RestAssuredConfig.config().objectMapperConfig(ObjectMapperConfig.objectMapperConfig().defaultObjectMapperType(ObjectMapperType.GSON)));
+                .setConfig(getDefaultRestAssuredConfig());
     }
 
     public static RequestSpecification getDefaultSpecBuilder() {
         return new RequestConfigurationBuilder().getRequestSpecBuilder().build();
+    }
+
+    private RequestSpecBuilder getUrlEncodedRequestSpecBuilderI() {
+        return new RequestSpecBuilder()
+                .setContentType(ContentType.URLENC)
+                .setConfig(getDefaultRestAssuredConfig());
+    }
+
+    public static RequestSpecification getUrlEncodedSpecBuilder() {
+        return new RequestConfigurationBuilder().getUrlEncodedRequestSpecBuilderI().build();
+    }
+
+    // Dobrą praktyką jest ustawienie Object Mapper dla każdego żądania
+    private RestAssuredConfig getDefaultRestAssuredConfig() {
+        return RestAssuredConfig.config().objectMapperConfig(ObjectMapperConfig.objectMapperConfig().defaultObjectMapperType(ObjectMapperType.GSON));
     }
 }
