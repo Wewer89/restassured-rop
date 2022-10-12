@@ -27,11 +27,11 @@ public class FindPetByStatusEndpoint extends BaseEndpoint<FindPetByStatusEndpoin
   @Step("Get Pets by status")
   @Override
   public FindPetByStatusEndpoint sendRequest() {
-    given()
-        .spec(RequestConfigurationBuilder.getDefaultSpecBuilder())
-        .queryParam("status", petStatus)
-        .when()
-        .get("/pet/findByStatus");
+    response = given()
+            .spec(RequestConfigurationBuilder.getDefaultSpecBuilder())
+            .queryParam("status", petStatus)
+            .when()
+            .get("/pet/findByStatus");
     return this;
   }
 
